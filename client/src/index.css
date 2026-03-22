@@ -1,0 +1,101 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #0f0f13;
+  --bg-secondary: #16161e;
+  --bg-card: #1c1c28;
+  --bg-card-hover: #22223a;
+  --border: #2a2a40;
+  --border-light: #3a3a55;
+  --text-primary: #e8e8f0;
+  --text-secondary: #9090b0;
+  --text-muted: #606080;
+  --accent: #a07cdc;
+  --accent-dim: #6a4fa0;
+  --accent-hover: #b28ee8;
+  --gold: #c9a84c;
+  --gold-dim: #8a7234;
+  --user-bubble: #1e2a3a;
+  --user-border: #2d4a6e;
+  --ai-bubble: #1e1e2e;
+  --ai-border: #3a2a55;
+  --success: #4caf7c;
+  --warning: #d4956a;
+  --font-serif: "Crimson Text", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Typography */
+h1, h2, h3, h4 { font-family: var(--font-serif); }
+
+.serif { font-family: var(--font-serif); }
+
+/* Utility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in { animation: fadeIn 0.3s ease forwards; }
+.slide-in { animation: slideIn 0.3s ease forwards; }
+
+/* Markdown-like formatting in messages */
+.message-content strong { color: var(--text-primary); font-weight: 600; }
+.message-content em { font-style: italic; color: var(--text-secondary); }
+.message-content ul, .message-content ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+.message-content li { margin: 0.25rem 0; }
+.message-content p { margin: 0.4rem 0; }
+.message-content p:first-child { margin-top: 0; }
+.message-content p:last-child { margin-bottom: 0; }
