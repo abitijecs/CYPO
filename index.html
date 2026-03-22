@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mailess_photo — Photographe</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <div class="nav-logo">mailess_photo</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="accueil" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Photographe</p>
+      <h1>mailess_photo</h1>
+      <p class="hero-subtitle">Capturer l'instant. Révéler l'émotion.</p>
+      <a href="#portfolio" class="btn-hero">Voir le portfolio</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Défiler</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="portfolio">
+    <div class="section-header">
+      <p class="section-tag">Travaux</p>
+      <h2>Portfolio</h2>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Tous</button>
+      <button class="filter-btn" data-filter="portrait">Portrait</button>
+      <button class="filter-btn" data-filter="lifestyle">Lifestyle</button>
+      <button class="filter-btn" data-filter="nature">Nature</button>
+      <button class="filter-btn" data-filter="urbain">Urbain</button>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <!-- Portrait -->
+      <div class="gallery-item" data-category="portrait">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Portrait — Lumière naturelle</span>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="portrait">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Portrait — Studio</span>
+        </div>
+      </div>
+      <div class="gallery-item large" data-category="lifestyle">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Lifestyle — Liberté</span>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="nature">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Nature — Paysage</span>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="urbain">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Urbain — Architecture</span>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="portrait">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Portrait — Émotion</span>
+        </div>
+      </div>
+      <div class="gallery-item large" data-category="nature">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Nature — Montagne</span>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="lifestyle">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Lifestyle — Amis</span>
+        </div>
+      </div>
+      <div class="gallery-item" data-category="urbain">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80')"></div>
+        <div class="gallery-overlay">
+          <span>Urbain — Nuit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-prev" id="lightboxPrev">&#8592;</button>
+    <button class="lightbox-next" id="lightboxNext">&#8594;</button>
+    <div class="lightbox-img-wrap">
+      <img src="" alt="" id="lightboxImg" />
+      <p id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- À PROPOS -->
+  <section id="apropos" class="about">
+    <div class="about-img">
+      <div class="about-img-inner" style="background-image: url('https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=900&q=80')"></div>
+      <div class="about-accent"></div>
+    </div>
+    <div class="about-text">
+      <p class="section-tag">À propos</p>
+      <h2>Derrière l'objectif</h2>
+      <p>
+        Passionnée de photographie depuis l'enfance, je capture des moments
+        authentiques et des émotions brutes. Mon regard se pose là où la lumière
+        rencontre l'âme — dans un sourire volé, un paysage en suspens, une scène
+        de vie ordinaire devenue extraordinaire.
+      </p>
+      <p>
+        Basée en France, je travaille aussi bien en studio qu'en extérieur, avec
+        une sensibilité particulière pour la lumière naturelle. Chaque séance est
+        pour moi une rencontre unique.
+      </p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-num" data-target="5">0</span>
+          <span class="stat-label">Ans d'expérience</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="300">0</span>
+          <span class="stat-label">Séances réalisées</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-target="12">0</span>
+          <span class="stat-label">Collaborations</span>
+        </div>
+      </div>
+      <a href="#contact" class="btn-outline">Prendre rendez-vous</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services">
+    <div class="section-header">
+      <p class="section-tag">Ce que je propose</p>
+      <h2>Services</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <h3>Portraits</h3>
+        <p>Séances individuelles ou en couple, en studio ou en extérieur. Chaque portrait révèle une personnalité unique.</p>
+        <span class="service-price">À partir de 150 €</span>
+      </div>
+      <div class="service-card featured">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Lifestyle</h3>
+        <p>Photos naturelles et spontanées qui racontent votre histoire. Famille, amis, instants de vie précieux.</p>
+        <span class="service-price">À partir de 200 €</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>Corporate</h3>
+        <p>Photos professionnelles pour vos équipes, événements d'entreprise et communication visuelle.</p>
+        <span class="service-price">Sur devis</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Événements</h3>
+        <p>Anniversaires, mariages, soirées privées. Je capture l'ambiance et les moments forts de vos célébrations.</p>
+        <span class="service-price">À partir de 350 €</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section class="testimonials">
+    <div class="section-header light">
+      <p class="section-tag">Ils témoignent</p>
+      <h2>Avis clients</h2>
+    </div>
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>« Une séance magnifique ! Les photos sont au-delà de mes attentes. Maïless sait mettre à l'aise et capturer les émotions avec une sensibilité rare. »</p>
+        <span class="testimonial-author">— Sophie L.</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>« Professionnalisme, créativité et bienveillance. Nos photos de famille sont absolument splendides. Je recommande vivement ! »</p>
+        <span class="testimonial-author">— Marc & Julie D.</span>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>« Maïless a su sublimer notre événement. Chaque cliché est une œuvre d'art. Un vrai talent pour saisir l'instant parfait. »</p>
+        <span class="testimonial-author">— Camille R.</span>
+      </div>
+    </div>
+    <div class="testimonial-dots" id="testimonialDots">
+      <button class="dot active" data-index="0"></button>
+      <button class="dot" data-index="1"></button>
+      <button class="dot" data-index="2"></button>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="section-header">
+      <p class="section-tag">Discutons</p>
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Une idée de projet ?</h3>
+        <p>Je serais ravie d'échanger avec vous sur votre projet photo. N'hésitez pas à me contacter pour en savoir plus.</p>
+        <ul class="contact-details">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>contact@mailess-photo.fr</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+33 6 00 00 00 00</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <a href="https://www.instagram.com/mailess_photo" target="_blank" rel="noopener">@mailess_photo</a>
+          </li>
+        </ul>
+      </div>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" placeholder="Votre nom" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="votre@email.fr" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Service souhaité</label>
+          <select id="service" name="service">
+            <option value="">Choisir un service</option>
+            <option value="portrait">Portrait</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="corporate">Corporate</option>
+            <option value="evenement">Événement</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Décrivez votre projet..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          <span>Envoyer le message</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+        <p class="form-success" id="formSuccess">Merci ! Votre message a bien été envoyé. Je vous répondrai sous 48h.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">mailess_photo</div>
+      <p class="footer-tagline">Capturer l'instant. Révéler l'émotion.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/mailess_photo" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </div>
+      <p class="footer-copy">&copy; 2026 mailess_photo — Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
