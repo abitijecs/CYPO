@@ -3,6 +3,7 @@ import type { AppView, DebateTopic } from "./types";
 import { HomePage } from "./components/HomePage";
 import { TopicSelector } from "./components/TopicSelector";
 import { DebateArena } from "./components/DebateArena";
+import { ApiKeyGate } from "./components/ApiKeyGate";
 
 export default function App() {
   const [view, setView] = useState<AppView>("home");
@@ -19,45 +20,50 @@ export default function App() {
   };
 
   return (
-    <div style={styles.app}>
-      <nav style={styles.nav}>
-        <button style={styles.logo} onClick={() => setView("home")}>
-          <span style={styles.logoSymbol}>⚖</span>
-          <span style={styles.logoText}>CYPO</span>
-        </button>
-        <div style={styles.navLinks}>
-          {view !== "home" && (
-            <button style={styles.navBtn} onClick={() => setView("home")}>
-              Accueil
+    <ApiKeyGate>
+      {(apiKey) => (
+        <div style={styles.app}>
+          <nav style={styles.nav}>
+            <button style={styles.logo} onClick={() => setView("home")}>
+              <span style={styles.logoSymbol}>⚖</span>
+              <span style={styles.logoText}>CYPO</span>
             </button>
-          )}
-          {view !== "topic-select" && (
-            <button style={styles.navBtn} onClick={() => setView("topic-select")}>
-              Sujets
-            </button>
-          )}
-        </div>
-      </nav>
+            <div style={styles.navLinks}>
+              {view !== "home" && (
+                <button style={styles.navBtn} onClick={() => setView("home")}>
+                  Accueil
+                </button>
+              )}
+              {view !== "topic-select" && (
+                <button style={styles.navBtn} onClick={() => setView("topic-select")}>
+                  Sujets
+                </button>
+              )}
+            </div>
+          </nav>
 
-      <main style={styles.main}>
-        {view === "home" && (
-          <HomePage onNavigate={setView} />
-        )}
-        {view === "topic-select" && (
-          <TopicSelector
-            onSelectTopic={handleSelectTopic}
-            onNavigate={setView}
-          />
-        )}
-        {view === "debate" && selectedTopic && (
-          <DebateArena
-            topic={selectedTopic}
-            onNavigate={setView}
-            onChangeTopic={handleChangeTopic}
-          />
-        )}
-      </main>
-    </div>
+          <main style={styles.main}>
+            {view === "home" && (
+              <HomePage onNavigate={setView} />
+            )}
+            {view === "topic-select" && (
+              <TopicSelector
+                onSelectTopic={handleSelectTopic}
+                onNavigate={setView}
+              />
+            )}
+            {view === "debate" && selectedTopic && (
+              <DebateArena
+                topic={selectedTopic}
+                onNavigate={setView}
+                onChangeTopic={handleChangeTopic}
+                apiKey={apiKey}
+              />
+            )}
+          </main>
+        </div>
+      )}
+    </ApiKeyGate>
   );
 }
 

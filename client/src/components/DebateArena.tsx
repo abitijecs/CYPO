@@ -8,10 +8,11 @@ interface DebateArenaProps {
   topic: DebateTopic;
   onNavigate: (view: AppView) => void;
   onChangeTopic: () => void;
+  apiKey: string;
 }
 
-export function DebateArena({ topic, onNavigate, onChangeTopic }: DebateArenaProps) {
-  const { messages, isStreaming, error, sendMessage, stopStreaming, resetDebate } = useDebate();
+export function DebateArena({ topic, onNavigate, onChangeTopic, apiKey }: DebateArenaProps) {
+  const { messages, isStreaming, error, sendMessage, stopStreaming, resetDebate } = useDebate(apiKey);
   const [currentPhaseIdx, setCurrentPhaseIdx] = useState(0);
   const [input, setInput] = useState("");
   const [showInfo, setShowInfo] = useState(false);

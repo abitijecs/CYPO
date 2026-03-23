@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { DebateTopic, AppView } from "../types";
 import { CATEGORY_LABELS, CATEGORY_COLORS } from "../types";
+import { TOPICS } from "../topics";
 
 interface TopicSelectorProps {
   onSelectTopic: (topic: DebateTopic) => void;
@@ -8,17 +9,9 @@ interface TopicSelectorProps {
 }
 
 export function TopicSelector({ onSelectTopic, onNavigate }: TopicSelectorProps) {
-  const [topics, setTopics] = useState<DebateTopic[]>([]);
-  const [loading, setLoading] = useState(true);
+  const topics = TOPICS;
   const [filter, setFilter] = useState<DebateTopic["category"] | "all">("all");
   const [hovered, setHovered] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch("/api/topics")
-      .then((r) => r.json())
-      .then((data: DebateTopic[]) => { setTopics(data); setLoading(false); })
-      .catch(() => setLoading(false));
-  }, []);
 
   const categories: Array<DebateTopic["category"] | "all"> = [
     "all", "metaphysique", "religion", "ethique", "epistemologie",
@@ -58,24 +51,17 @@ export function TopicSelector({ onSelectTopic, onNavigate }: TopicSelectorProps)
         ))}
       </div>
 
-      {loading ? (
-        <div style={styles.loading}>
-          <div style={styles.spinner} />
-          <span>Chargement des sujets...</span>
-        </div>
-      ) : (
-        <div style={styles.grid}>
-          {filtered.map((topic) => (
-            <TopicCard
-              key={topic.id}
-              topic={topic}
-              isHovered={hovered === topic.id}
-              onHover={setHovered}
-              onSelect={onSelectTopic}
-            />
-          ))}
-        </div>
-      )}
+      <div style={styles.grid}>
+        {filtered.map((topic) => (
+          <TopicCard
+            key={topic.id}
+            topic={topic}
+            isHovered={hovered === topic.id}
+            onHover={setHovered}
+            onSelect={onSelectTopic}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { useState, useCallback, useRef } from "react";
+import Anthropic from "@anthropic-ai/sdk";
 import type { Message, DebateTopic, DebatePhase } from "../types";
+import { SYSTEM_PROMPT } from "../systemPrompt";
 
-const API_BASE = "/api";
-
-export function useDebate() {
+export function useDebate(apiKey: string) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const abortRef = useRef<AbortController | null>(null);
+  const abortRef = useRef<boolean>(false);
 
   const sendMessage = useCallback(
     async (
@@ -28,9 +28,8 @@ export function useDebate() {
 
       setMessages((prev) => [...prev, userMsg]);
 
-      // Build history for API (exclude current message)
       const history = messages.map((m) => ({
-        role: m.role,
+        role: m.role as "user" | "assistant",
         content: m.content,
       }));
 
@@ -44,84 +43,69 @@ export function useDebate() {
       };
       setMessages((prev) => [...prev, assistantMsg]);
       setIsStreaming(true);
+      abortRef.current = false;
 
-      abortRef.current = new AbortController();
+      const phaseContext = `[Phase actuelle : ${phase.label} — ${phase.description}]
+[Sujet : ${topic.title}]
+[Philosophes clés pour ce sujet : ${topic.keyPhilosophers.join(", ")}]
+[Textes de référence : ${topic.keyTexts.join(", ")}]`;
+
+      const conversationHistory: { role: "user" | "assistant"; content: string }[] = [
+        { role: "user", content: phaseContext },
+        { role: "assistant", content: `Compris. Nous sommes en phase **${phase.label}** du débat sur **"${topic.title}"**. ${phase.prompt}` },
+        ...history,
+        { role: "user", content: userMessage },
+      ];
 
       try {
-        const response = await fetch(`${API_BASE}/debate`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            topicId: topic.id,
-            phaseId: phase.id,
-            messages: history,
-            userMessage,
-          }),
-          signal: abortRef.current.signal,
+        const client = new Anthropic({
+          apiKey,
+          dangerouslyAllowBrowser: true,
         });
 
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
-        }
+        const stream = client.messages.stream({
+          model: "claude-opus-4-6",
+          max_tokens: 2048,
+          system: SYSTEM_PROMPT,
+          messages: conversationHistory,
+        });
 
-        const reader = response.body?.getReader();
-        if (!reader) throw new Error("No response body");
-
-        const decoder = new TextDecoder();
-        let buffer = "";
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
-
-          for (const line of lines) {
-            if (!line.startsWith("data: ")) continue;
-            const raw = line.slice(6).trim();
-            if (!raw) continue;
-
-            try {
-              const event = JSON.parse(raw);
-              if (event.type === "text") {
-                setMessages((prev) =>
-                  prev.map((m) =>
-                    m.id === assistantMsgId
-                      ? { ...m, content: m.content + event.content }
-                      : m
-                  )
-                );
-              } else if (event.type === "error") {
-                throw new Error(event.message);
-              }
-            } catch {
-              // ignore parse errors on individual events
-            }
+        for await (const event of stream) {
+          if (abortRef.current) break;
+          if (
+            event.type === "content_block_delta" &&
+            event.delta.type === "text_delta"
+          ) {
+            const text = (event.delta as { type: "text_delta"; text: string }).text;
+            setMessages((prev) =>
+              prev.map((m) =>
+                m.id === assistantMsgId
+                  ? { ...m, content: m.content + text }
+                  : m
+              )
+            );
           }
         }
       } catch (err) {
-        if (err instanceof Error && err.name === "AbortError") return;
+        if (abortRef.current) return;
         const message = err instanceof Error ? err.message : "Erreur inconnue";
         setError(message);
-        // Remove the empty assistant message on error
         setMessages((prev) => prev.filter((m) => m.id !== assistantMsgId));
       } finally {
         setIsStreaming(false);
-        abortRef.current = null;
+        abortRef.current = false;
       }
     },
-    [messages, isStreaming]
+    [messages, isStreaming, apiKey]
   );
 
   const stopStreaming = useCallback(() => {
-    abortRef.current?.abort();
+    abortRef.current = true;
     setIsStreaming(false);
   }, []);
 
   const resetDebate = useCallback(() => {
-    abortRef.current?.abort();
+    abortRef.current = true;
     setMessages([]);
     setIsStreaming(false);
     setError(null);
