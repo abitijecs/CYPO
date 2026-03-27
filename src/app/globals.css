@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #f5f0e8;
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #3d2e1a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a84c;
+}
+
+/* Selection */
+::selection {
+  background: rgba(201, 168, 76, 0.25);
+  color: #f5f0e8;
+}
+
+/* Utility classes */
+@layer components {
+  .gold-line {
+    @apply w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent;
+  }
+
+  .section-label {
+    @apply text-gold text-xs uppercase tracking-[0.3em] font-sans font-medium;
+  }
+
+  .section-title {
+    @apply font-serif text-4xl md:text-5xl text-cream leading-tight;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:border-gold/40 hover:shadow-[0_0_30px_rgba(201,168,76,0.1)];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-8 py-3 bg-gold text-background font-sans font-medium text-sm tracking-wider uppercase transition-all duration-300 hover:bg-gold-light hover:shadow-[0_0_20px_rgba(201,168,76,0.4)];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-8 py-3 border border-gold/50 text-gold font-sans font-medium text-sm tracking-wider uppercase transition-all duration-300 hover:border-gold hover:bg-gold/10;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-6 py-2 text-text-secondary font-sans text-sm transition-all duration-200 hover:text-cream;
+  }
+}
