@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assistant Photo — CYPO</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">📷 CYPO</div>
+        <p class="tagline">Photographe professionnel</p>
+      </div>
+
+      <div class="qualification-card" id="qual-card">
+        <h3>Analyse client</h3>
+        <div class="qual-badge" id="qual-badge">—</div>
+        <div class="qual-details">
+          <div class="qual-row">
+            <span class="qual-label">Besoin</span>
+            <span class="qual-value" id="qual-resume">—</span>
+          </div>
+          <div class="qual-row">
+            <span class="qual-label">Budget</span>
+            <span class="qual-value" id="qual-budget">—</span>
+          </div>
+          <div class="qual-row">
+            <span class="qual-label">Date</span>
+            <span class="qual-value" id="qual-date">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="reset-btn" id="reset-btn">Nouvelle conversation</button>
+      </div>
+    </aside>
+
+    <!-- Chat area -->
+    <main class="chat-area">
+      <div class="chat-messages" id="messages"></div>
+
+      <div class="chat-input-wrap">
+        <div class="chat-input-inner">
+          <textarea
+            id="user-input"
+            placeholder="Écrivez votre message…"
+            rows="1"
+            autofocus
+          ></textarea>
+          <button id="send-btn" aria-label="Envoyer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+        <p class="input-hint">Appuyez sur Entrée pour envoyer · Maj+Entrée pour une nouvelle ligne</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
