@@ -1,0 +1,175 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1a365d;
+  --primary-light: #2a4a7f;
+  --accent: #f97316;
+  --accent-dark: #ea6c0a;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --shadow: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+  --radius: 8px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+.app { display: flex; flex-direction: column; height: 100vh; }
+
+.app-body { display: flex; flex: 1; overflow: hidden; }
+
+/* ── Header ─────────────────────────────────────────── */
+.app-header {
+  background: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  flex-shrink: 0;
+}
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-icon { font-size: 32px; }
+.app-header h1 { font-size: 18px; font-weight: 700; }
+.header-sub { font-size: 12px; opacity: .65; margin-top: 1px; }
+
+.btn-map-mode {
+  padding: 7px 14px;
+  border: 1.5px solid rgba(255,255,255,.4);
+  background: transparent;
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-map-mode:hover, .btn-map-mode.active {
+  background: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.7);
+}
+
+/* ── Sidebar ─────────────────────────────────────────── */
+.sidebar {
+  width: 380px;
+  flex-shrink: 0;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Tabs ─────────────────────────────────────────────── */
+.tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--bg); }
+.tab {
+  flex: 1;
+  padding: 10px 6px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color .15s;
+}
+.tab:hover:not(:disabled) { color: var(--primary); }
+.tab.active { color: var(--primary); background: white; border-bottom: 2px solid var(--accent); }
+.tab:disabled { opacity: .4; cursor: not-allowed; }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: white;
+  border-radius: 10px;
+  font-size: 10px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  margin-left: 4px;
+}
+
+/* ── Tab content ─────────────────────────────────────── */
+.tab-content { flex: 1; overflow-y: auto; padding: 16px; }
+
+.empty-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ── Error banner ─────────────────────────────────────── */
+.error-banner {
+  margin: 0 16px 8px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius);
+  color: var(--danger);
+  font-size: 13px;
+}
+
+/* ── Optimize bar ─────────────────────────────────────── */
+.optimize-bar {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+}
+.btn-optimize {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .15s;
+}
+.btn-optimize:hover:not(:disabled) { background: var(--accent-dark); }
+.btn-optimize:disabled { opacity: .5; cursor: not-allowed; }
+.hint { text-align: center; color: var(--text-muted); font-size: 12px; margin-top: 8px; }
+
+/* ── Spinner ─────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Map ─────────────────────────────────────────────── */
+.map-wrap { flex: 1; position: relative; }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .app-body { flex-direction: column-reverse; }
+  .sidebar { width: 100%; height: 55vh; }
+  .map-wrap { height: 45vh; }
+  .header-actions { display: none; }
+}
